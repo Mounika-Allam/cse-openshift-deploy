@@ -1,19 +1,12 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
-  name: springboot-openshift
+  name: springboot-openshift-service
 spec:
-  replicas: 2
+  type: NodePort
   selector:
-    matchLabels:
-      app: cseoc-app
-  template:
-    metadata:
-      labels:
-        app: cseoc-app
-    spec:
-      containers:
-      - name: springboot-openshift
-        image: allammounika/cseoc:latest
-        ports:
-        - containerPort: 8085
+    app: cseoc-app
+  ports:
+    - port: 8085
+      targetPort: 8085
+      nodePort: 30007
